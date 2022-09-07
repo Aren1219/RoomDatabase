@@ -4,11 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import com.example.roomapp.api.ApiDetails
 import com.example.roomapp.api.ApiReferences.BASE_URL
-import com.example.roomapp.repository.LocalDataSource
-import com.example.roomapp.repository.RemoteDataSource
-import com.example.roomapp.repository.Repository
 import com.example.roomapp.roomdb.BeersDao
 import com.example.roomapp.roomdb.BeersDatabase
+import com.example.roomdatabase.repo.Repository
+import com.example.roomdatabase.repo.RepositoryImp
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -24,7 +23,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+object AppModule {
 
     @Provides
     @Singleton
@@ -62,12 +61,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteDataSource(apiDetails: ApiDetails):RemoteDataSource = RemoteDataSource(apiDetails)
-
-    @Provides
-    @Singleton
-    fun provideRepository(remoteDataSource: RemoteDataSource,localDataSource: LocalDataSource): Repository=
-        Repository(remoteDataSource,localDataSource)
+    fun provideRepository(apiDetails: ApiDetails, beersDao: BeersDao): Repository =
+        RepositoryImp(apiDetails,beersDao)
 
     @Provides
     @Singleton

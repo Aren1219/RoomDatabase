@@ -8,9 +8,8 @@ import com.example.roomapp.model.Beers
     tableName = "beers"
 )
 class BeerEntity(
-    val beerEntityModel: Beers
+    val beersList: Beers
     ) {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     var generatedId:Int = 0
-
 }
