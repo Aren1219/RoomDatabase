@@ -18,9 +18,7 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            if (repository.getBeersFromDb().beersList.isNullOrEmpty()){
-                getBeersFromApi()
-            }
+            getBeersFromApi()
         }
     }
 
